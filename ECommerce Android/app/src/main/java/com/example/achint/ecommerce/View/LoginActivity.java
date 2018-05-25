@@ -13,6 +13,8 @@ import com.example.achint.ecommerce.Controller.UserController;
 import com.example.achint.ecommerce.Interface.UsersInterface;
 import com.example.achint.ecommerce.Model.Users;
 import com.example.achint.ecommerce.R;
+import com.example.achint.ecommerce.Sessions.AlertDialogManager;
+import com.example.achint.ecommerce.Sessions.SessionManagement;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText etEmail;
     EditText etPassword;
     UsersInterface usersInterface;
+    AlertDialogManager alert = new AlertDialogManager();
+    SessionManagement session;
 
     private void loginUser(Users users){
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -35,14 +39,22 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (200 == response.code()) {
                     Users userInResponse = response.body();
+                    session.createLoginSession(userInResponse.getFirstname(), userInResponse.getEmail());
+
                     Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
+
+                    Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(i);
+                    finish();
+
                 }
             }
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
                 progressDialog.dismiss();
+                alert.showAlertDialog(LoginActivity.this, "Login failed..", "Username/Password is incorrect", false);
                 Toast.makeText(LoginActivity.this, "Failed to login", Toast.LENGTH_LONG).show();
             }
         });
@@ -52,9 +64,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        session = new SessionManagement(getApplicationContext());
 
         etEmail = findViewById(R.id.et_lemail);
         etPassword = findViewById(R.id.et_lpassword);
+
+        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+
         login = findViewById(R.id.bt_login);
         register = findViewById(R.id.bt_register);
 
@@ -63,12 +79,18 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Users users = new Users();
-                users.setEmail(etEmail.getText().toString());
-                users.setPassword(etPassword.getText().toString());
-                etEmail.setText("");
-                etPassword.setText("");
-                loginUser(users);
+                if(etEmail.getText().toString().trim().length() > 0 && etPassword.getText().toString().trim().length() > 0) {
+
+                    Users users = new Users();
+                    users.setEmail(etEmail.getText().toString());
+                    users.setPassword(etPassword.getText().toString());
+                    etEmail.setText("");
+                    etPassword.setText("");
+                    loginUser(users);
+                }
+                else{
+                    alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please Enter Email and Password", false);
+                }
             }
         });
 

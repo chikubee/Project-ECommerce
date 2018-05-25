@@ -12,6 +12,6 @@ public interface UsersInterface {
     Call<Users> validateUser(@Body Users users);
 
     @POST("register")
-    Call<Boolean> createUser(@Body Users users);
+    Call<Users> createUser(@Body Users users);
 
 }

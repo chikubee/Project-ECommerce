@@ -24,8 +24,8 @@ public class UserController extends Application{
 
     public Retrofit getClient() {
         if (null == retrofit) {
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .connectTimeout(10, TimeUnit.SECONDS).build();
+            OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true)
+                    .build();
             // Set the base url
 
             retrofit = new Retrofit.Builder()

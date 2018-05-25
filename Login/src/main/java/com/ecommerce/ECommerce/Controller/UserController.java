@@ -3,6 +3,7 @@ import com.ecommerce.ECommerce.DTO.UserDto;
 import com.ecommerce.ECommerce.Service.UserService;
 import com.ecommerce.ECommerce.UserExceptions.PasswordMismatchException;
 import com.ecommerce.ECommerce.UserExceptions.UserExistsException;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public boolean registerUser(@RequestBody UserDto userDto) throws UserExistsException {
+    public UserDto registerUser(@RequestBody UserDto userDto) throws UserExistsException {
         return userService.createUser(userDto);
     }
 

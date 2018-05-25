@@ -1,6 +1,7 @@
 package com.example.achint.ecommerce.View;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +13,8 @@ import com.example.achint.ecommerce.Controller.UserController;
 import com.example.achint.ecommerce.Interface.UsersInterface;
 import com.example.achint.ecommerce.Model.Users;
 import com.example.achint.ecommerce.R;
+import com.example.achint.ecommerce.Sessions.SessionManagement;
 
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,23 +22,31 @@ import retrofit2.Response;
 
 public class SignupActivity extends AppCompatActivity {
     UsersInterface usersInterface;
+    SessionManagement session;
 
     private void addUser(Users users){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.show();
 
-        Call<Boolean> call = usersInterface.createUser(users);
-        call.enqueue(new Callback<Boolean>() {
+        Call<Users> call = usersInterface.createUser(users);
+        call.enqueue(new Callback<Users>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (response.code() == 200 && response.body() == true) {
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if (response.code() == 200) {
+                    Users userInResponse = response.body();
+                    session = new SessionManagement(getApplicationContext());
+                    session.createLoginSession(userInResponse.getFirstname(), userInResponse.getEmail());
                     Toast.makeText(SignupActivity.this,"registered successfully :)",Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
+                    Intent i = new Intent(SignupActivity.this,MainActivity.class);
+                    startActivity(i);
+                    finish();
+
                 }
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<Users> call, Throwable t) {
                 Toast.makeText(SignupActivity.this,"registration failed :(",Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
             }

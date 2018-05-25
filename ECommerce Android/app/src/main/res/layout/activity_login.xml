@@ -31,25 +31,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_margin="8dp"
             android:text="Buy Anything and Everything with Ease "
             android:textColor="#ebbbc5" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/usernameWrapper1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_lemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="10dp"
             android:hint="Email Address*"
             android:inputType="textEmailAddress" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/usernameWrapper2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/et_lpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="10dp"
             android:hint="Password*"
             android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/bt_login"
