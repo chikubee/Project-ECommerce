@@ -6,10 +6,10 @@ import com.ecommerce.ECommerce.Repository.UserRepository;
 import com.ecommerce.ECommerce.UserExceptions.PasswordMismatchException;
 import com.ecommerce.ECommerce.UserExceptions.UserExistsException;
 import com.ecommerce.ECommerce.UserSecurity.HashPassword;
+import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.provider.MD5;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -22,7 +22,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDto createUser(UserDto userDto) throws UserExistsException {
+    public boolean createUser(UserDto userDto) throws UserExistsException {
         if (userRepository.existsByEmail(userDto.getEmail())) {
             throw new UserExistsException("User Already Existing");
         }
@@ -30,17 +30,18 @@ public class UserServiceImp implements UserService {
         UserModel userModel = new UserModel();
         BeanUtils.copyProperties(userDto, userModel);
         userRepository.save(userModel);
-        return userDto;
+        return true;
     }
 
     @Override
-    public String validateUser(String email, String password) throws PasswordMismatchException {
+    public UserDto validateUser(String email, String password) throws PasswordMismatchException {
         UserModel userModel = userRepository.findByEmail(email);
-        password = HashPassword.MD5(password);
         if(!password.equals(userModel.getPassword())){
             throw new PasswordMismatchException("passwords do not match, please try again");
         }
-        return "successfully logged in";
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(userModel, userDto);
+        return userDto;
     }
 
 }

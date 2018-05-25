@@ -1,7 +1,9 @@
-package com.example.achint.ecommerce;
+package com.example.achint.ecommerce.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.achint.ecommerce.R;
 
 public class HomeActivity extends AppCompatActivity {
 

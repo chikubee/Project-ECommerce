@@ -21,7 +21,10 @@ public class UserDto {
         this.password = HashPassword.MD5(password);
     }
 
-
+    public UserDto(String email, String password){
+        this.email = email;
+        this.password = HashPassword.MD5(password);
+    }
 
     public UserDto(){}
 
