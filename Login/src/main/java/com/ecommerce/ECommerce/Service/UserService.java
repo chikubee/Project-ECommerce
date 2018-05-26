@@ -6,5 +6,5 @@ import com.ecommerce.ECommerce.UserExceptions.UserExistsException;
 
 public interface UserService {
     public UserDto createUser(UserDto userDto) throws UserExistsException;
-    public String validateUser(String email, String password) throws PasswordMismatchException;
+    public UserDto validateUser(String email, String password) throws PasswordMismatchException;
 }

@@ -5,11 +5,9 @@ import com.ecommerce.ECommerce.Model.UserModel;
 import com.ecommerce.ECommerce.Repository.UserRepository;
 import com.ecommerce.ECommerce.UserExceptions.PasswordMismatchException;
 import com.ecommerce.ECommerce.UserExceptions.UserExistsException;
-import com.ecommerce.ECommerce.UserSecurity.HashPassword;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.provider.MD5;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -34,13 +32,14 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public String validateUser(String email, String password) throws PasswordMismatchException {
+    public UserDto validateUser(String email, String password) throws PasswordMismatchException {
         UserModel userModel = userRepository.findByEmail(email);
-        password = HashPassword.MD5(password);
         if(!password.equals(userModel.getPassword())){
             throw new PasswordMismatchException("passwords do not match, please try again");
         }
-        return "successfully logged in";
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(userModel, userDto);
+        return userDto;
     }
 
 }
