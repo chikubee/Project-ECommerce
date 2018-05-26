@@ -23,4 +23,6 @@ public interface ProductServiceInterface {
     List<Product> getProductsSortByPrice();
 
     List<Product> getProductSortByRating();
+
+    boolean reduceProductCount(String productId);
 }

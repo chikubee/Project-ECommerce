@@ -44,11 +44,11 @@ public class OrderController {
     public ProductsApiCall productsApiCall;
 
     @RequestMapping("place-order")
-    public OrderDto placeOrder(){//(@RequestParam String emailUser, String productUrl, String productId, String userId, String merchantId, double cost) throws AddressException {
-//        OrderDto orderDto = new OrderDto(productUrl, productId, userId, merchantId, cost);
-//        orderInterface.addProductToCart(orderDto);
-//        mailSender.setMail(emailUser);
-        productsApiCall.changeProductCount("4");
+    public OrderDto placeOrder(@RequestParam String emailUser, String productUrl, String productId, String userId, String merchantId, double cost) throws AddressException {
+        OrderDto orderDto = new OrderDto(productUrl, productId, userId, merchantId, cost);
+        orderInterface.addProductToCart(orderDto);
+        mailSender.setMail(emailUser);
+        productsApiCall.changeProductCount(productId);
         return null;
     }
 

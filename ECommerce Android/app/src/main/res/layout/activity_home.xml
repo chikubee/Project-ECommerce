@@ -4,14 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-<<<<<<< HEAD
+
     android:layout_height="wrap_content"
     tools:context=".View.ProductActivity"
     android:orientation="vertical">
-=======
-    android:layout_height="match_parent"
-    tools:context=".View.HomeActivity">
->>>>>>> 12e4a3048d30086047c63554bf61e2f8da4147da
+
 
     <LinearLayout
         android:id="@+id/product_id"

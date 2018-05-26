@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.achint.ecommerce.Controller.UserController;
+import com.example.achint.ecommerce.Controller.MainController;
 import com.example.achint.ecommerce.Interface.UsersInterface;
 import com.example.achint.ecommerce.Model.Users;
 import com.example.achint.ecommerce.R;
@@ -67,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
         final EditText etPassword = findViewById(R.id.et_password);
         final Button signup = findViewById(R.id.bt_signup);
 
-        usersInterface = UserController.getInstance().getClient().create(UsersInterface.class);
+        usersInterface = MainController.getInstance().getClientForLogin().create(UsersInterface.class);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override

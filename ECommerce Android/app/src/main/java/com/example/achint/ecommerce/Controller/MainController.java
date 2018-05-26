@@ -10,6 +10,7 @@ public class MainController extends Application{
 
     private static Retrofit retrofitForOrder = null;
     private static Retrofit retrofitForProducts = null;
+    private static Retrofit retrofitForLogin = null;
     public static MainController mInstance;
 
 
@@ -47,5 +48,19 @@ public class MainController extends Application{
                     .build();
         }
         return retrofitForProducts;
+    }
+
+    public Retrofit getClientForLogin() {
+        if (null == retrofitForLogin) {
+            OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true)
+                    .build();
+
+            retrofitForLogin = new Retrofit.Builder()
+                    .baseUrl("http://10.177.2.78:8080/easybuy/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+        }
+        return retrofitForLogin;
     }
 }

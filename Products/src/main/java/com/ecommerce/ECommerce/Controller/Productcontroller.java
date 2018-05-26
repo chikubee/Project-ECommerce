@@ -52,6 +52,9 @@ public class Productcontroller {
     public List<Product> getProductSortByRating(){
         return productService.getProductSortByRating();
     }
+
+    @RequestMapping("/reduceProductCount")
+    public boolean reduceProductCount(@RequestParam String productId){
+        return productService.reduceProductCount(productId);
+    }
 }
-
-
