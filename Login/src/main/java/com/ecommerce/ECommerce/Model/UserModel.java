@@ -29,7 +29,6 @@ public class UserModel {
         this.contact = contact;
         this.email = email;
         this.password = password;
-//        this.password = password;
     }
 
     public UserModel(){}
@@ -79,7 +78,6 @@ public class UserModel {
     }
 
     public void setPassword(String password) { this.password = password;
-      //  this.password = password;
     }
 
 

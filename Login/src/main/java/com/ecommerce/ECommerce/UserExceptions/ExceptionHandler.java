@@ -13,8 +13,11 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(UserExistsException.class)
     public ResponseEntity<String> empExistsException(UserExistsException ex){
-        //LOG.warning("get command exception "+ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @org.springframework.web.bind.annotation.ExceptionHandler(PasswordMismatchException.class)
+    public ResponseEntity<String> passwordMismatchException(PasswordMismatchException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }
