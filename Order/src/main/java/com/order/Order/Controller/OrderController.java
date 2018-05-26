@@ -1,6 +1,7 @@
 package com.order.Order.Controller;
 
 import com.google.common.collect.Lists;
+import com.order.Order.ApiCall.ProductsApiCall;
 import com.order.Order.DTO.OrderDto;
 import com.order.Order.MailSender;
 import com.order.Order.Model.OrderModel;
@@ -9,9 +10,16 @@ import it.ozimov.springboot.mail.model.Email;
 import it.ozimov.springboot.mail.model.defaultimpl.DefaultEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -31,17 +39,17 @@ public class OrderController {
     @Qualifier("mailsend")
     public MailSender mailSender;
 
-    @RequestMapping("place-order")
-    public OrderDto placeOrder(@RequestParam String emailUser, String productUrl, String productId, String userId, String merchantId, double cost) throws AddressException {
+    @Autowired
+    @Qualifier("productapi")
+    public ProductsApiCall productsApiCall;
 
-        OrderDto orderDto = new OrderDto(productUrl, productId, userId, merchantId, cost);
-        orderInterface.addProductToCart(orderDto);
-        String from = "ecommercenoidea@gmail.com";
-        String to = "achintachu@gmail.com";
-        String subject = "Order Placed";
-        String body = "Congrats Order Placed, thanks for shopping with us";
-        mailSender.sendMail(from, to, subject, body);
-        return orderDto;
+    @RequestMapping("place-order")
+    public OrderDto placeOrder(){//(@RequestParam String emailUser, String productUrl, String productId, String userId, String merchantId, double cost) throws AddressException {
+//        OrderDto orderDto = new OrderDto(productUrl, productId, userId, merchantId, cost);
+//        orderInterface.addProductToCart(orderDto);
+//        mailSender.setMail(emailUser);
+        productsApiCall.changeProductCount("4");
+        return null;
     }
 
     @RequestMapping("order-history")

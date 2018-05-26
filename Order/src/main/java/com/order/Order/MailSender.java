@@ -27,4 +27,12 @@ public class MailSender {
         javaMailSender.send(mail);
 
     }
+
+    public void setMail(String emailUser){
+        String from = "Ecommerce";
+        String to = emailUser;
+        String subject = "Order Placed";
+        String body = "Congrats Order Placed, thanks for shopping with us";
+        sendMail(from, to, subject, body);
+    }
 }
