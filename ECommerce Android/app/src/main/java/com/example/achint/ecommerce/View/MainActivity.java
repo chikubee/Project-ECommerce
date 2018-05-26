@@ -1,11 +1,19 @@
 package com.example.achint.ecommerce.View;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent  = getIntent();
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
+                    MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
+            suggestions.saveRecentQuery(query, null);
+        }
 
         session = new SessionManagement(getApplicationContext());
 
@@ -55,4 +72,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
