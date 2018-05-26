@@ -31,14 +31,19 @@ public class Product {
 
     private String productImageUrl;
 
+    private String merchantId;
+
     private int merchantRating;
 
     private int productRating;
 
+    private boolean isIndexed;
 
 
-    public Product(int productRating, String productCategory, int merchantRating, String productImageUrl, String productId, String productName, Double productPrice, int unitStock, String productDescription, String productMerchant) {
+
+    public Product(String merchantId, int productRating, String productCategory, int merchantRating, String productImageUrl, String productId, String productName, Double productPrice, int unitStock, String productDescription, String productMerchant) {
         //Id = id;
+        this.merchantId = merchantId;
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
@@ -49,6 +54,7 @@ public class Product {
         this.merchantRating = merchantRating;
         this.productCategory = productCategory;
         this.productRating = productRating;
+        this.isIndexed = false;
     }
 
     public Product(){
@@ -57,6 +63,14 @@ public class Product {
 
     public int getProductRating() {
         return productRating;
+    }
+
+    public boolean isIndexed() {
+        return isIndexed;
+    }
+
+    public void setIndexed(boolean indexed) {
+        isIndexed = indexed;
     }
 
     public void setProductRating(int productRating) {

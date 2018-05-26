@@ -3,10 +3,16 @@ package com.ecommerce.ECommerce.Service;
 import com.ecommerce.ECommerce.DTO.ProductDto;
 import com.ecommerce.ECommerce.Model.Product;
 import com.ecommerce.ECommerce.Repository.ProductRepositoryInterface;
+import com.mongodb.MongoClient;
+import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +23,10 @@ public class ProductServiceImpl  implements ProductServiceInterface{
 
     @Autowired
     private ProductRepositoryInterface  productRepository;
+
+
+    @Autowired
+    MongoOperations mongoOperations;
 
     @Override
     public String createProduct(ProductDto product){
@@ -60,6 +70,17 @@ public class ProductServiceImpl  implements ProductServiceInterface{
     @Override
     public List<Product> getProductSortByRating() {
         return productRepository.findAll(new Sort(Sort.Direction.DESC, "productRating"));
+    }
+
+    @Override
+    public boolean reduceProductCount(String productId) {
+        UpdateResult result = mongoOperations.updateFirst(new Query(Criteria.where("_id").is(productId)),
+                new Update().inc("unitStock", -1), Product.class);
+        if(result.isModifiedCountAvailable()){
+            return true;
+        }
+        return false;
+
     }
 
 

@@ -43,15 +43,18 @@ public class Productcontroller {
         return productService.getProductsByCategory(productCategory);
     }
 
-    @RequestMapping("getProductSortByPrice")
+    @RequestMapping("/getProductSortByPrice")
     public List<Product> getProductSortByPrice(){
         return productService.getProductsSortByPrice();
     }
 
-    @RequestMapping("getProductSortByRating")
+    @RequestMapping("/getProductSortByRating")
     public List<Product> getProductSortByRating(){
         return productService.getProductSortByRating();
     }
+
+    @RequestMapping("/reduceProductCount")
+    public boolean reduceProductCount(@RequestParam String productId){
+        return productService.reduceProductCount(productId);
+    }
 }
-
-

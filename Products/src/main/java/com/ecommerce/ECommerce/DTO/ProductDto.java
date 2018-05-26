@@ -13,9 +13,27 @@ public class ProductDto {
     private String productMerchant;
     private String productCategory;
     private int productRating;
+    private boolean isIndexed;
+    private String merchantId;
+
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
 
     public int getProductRating() {
         return productRating;
+    }
+
+    public boolean isIndexed() {
+        return isIndexed;
+    }
+
+    public void setIndexed(boolean indexed) {
+        isIndexed = indexed;
     }
 
     public void setProductRating(int productRating) {

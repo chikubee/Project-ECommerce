@@ -1,0 +1,38 @@
+package com.order.Order;
+
+import jdk.internal.instrumentation.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
+
+@Component("mailsend")
+public class MailSender {
+
+    @Autowired
+    JavaMailSender javaMailSender;
+
+
+    public void sendMail(String from, String to, String subject, String body) {
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+
+        mail.setFrom(from);
+        mail.setTo(to);
+        mail.setSubject(subject);
+        mail.setText(body);
+
+
+        javaMailSender.send(mail);
+
+    }
+
+    public void setMail(String emailUser){
+        String from = "Ecommerce";
+        String to = emailUser;
+        String subject = "Order Placed";
+        String body = "Congrats Order Placed, thanks for shopping with us";
+        sendMail(from, to, subject, body);
+    }
+}
