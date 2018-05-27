@@ -35,6 +35,9 @@ public class SessionManagement {
     // Email address (make variable public to access from outside)
     public static final String KEY_EMAIL = "email";
 
+    // User id (make variable public to access from outside)
+    public static final String KEY_ID = "user_id";
+
     // Constructor
     public SessionManagement(Context context){
         this._context = context;
@@ -43,7 +46,7 @@ public class SessionManagement {
     }
 
     //Create Login Session
-    public void createLoginSession(String name, String email){
+    public void createLoginSession(String name, String email, String userId){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -52,6 +55,10 @@ public class SessionManagement {
 
         // Storing email in pref
         editor.putString(KEY_EMAIL, email);
+
+        // Storing user id in pref
+        editor.putString(KEY_ID, userId);
+
 
         // commit changes
         editor.commit();
@@ -65,6 +72,9 @@ public class SessionManagement {
 
         // user email id
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
+        // user email id
+        user.put(KEY_ID, pref.getString(KEY_ID, null));
 
         // return user
         return user;
@@ -96,7 +106,7 @@ public class SessionManagement {
         editor.commit();
 
         // After logout redirect user to Loing Activity
-        Intent i = new Intent(_context, LoginActivity.class);
+        Intent i = new Intent(_context, NavigationActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

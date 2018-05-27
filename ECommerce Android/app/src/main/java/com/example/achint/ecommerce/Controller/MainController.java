@@ -42,7 +42,7 @@ public class MainController extends Application{
             OkHttpClient client = new OkHttpClient.Builder().build();
 
             retrofitForProducts = new Retrofit.Builder()
-                    .baseUrl(url)
+                    .baseUrl("http://10.177.1.250:8081/products/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

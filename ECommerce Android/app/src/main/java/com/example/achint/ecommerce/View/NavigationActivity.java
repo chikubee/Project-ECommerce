@@ -67,7 +67,7 @@ public class NavigationActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
 
         if (!session.isLoggedIn()) {
-            menu.findItem(R.id.sign_out).setVisible(false);
+            menu.findItem(R.id.myAccount).setVisible(false);
         }
 
         Intent intent = getIntent();
@@ -82,29 +82,18 @@ public class NavigationActivity extends AppCompatActivity
 
         TextView lblName = (TextView) findViewById(R.id.lblName);
         TextView lblEmail = (TextView) findViewById(R.id.lblEmail);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
+
 
         Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         HashMap<String, String> user = session.getUserDetails();
 
+        String user_id = user.get(SessionManagement.KEY_ID);
         String name = user.get(SessionManagement.KEY_NAME);
         String email = user.get(SessionManagement.KEY_EMAIL);
 
-        lblName.setText(Html.fromHtml("Name: <b>" + name + "</b>"));
-        lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // Clear the session data
-                // This will clear all session data and
-                // redirect user to LoginActivity
-                session.logoutUser();
-            }
-        });
-
+//        lblName.setText(Html.fromHtml("Name: <b>" + name + "</b>"));
+//        lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
 
     }
 
@@ -149,7 +138,9 @@ public class NavigationActivity extends AppCompatActivity
                 session.checkLogin();
 //                Intent i = new Intent(NavigationActivity.this,LoginActivity.class);
 //                startActivity(i);
-                Toast.makeText(getApplicationContext(), session.getUserDetails().get(SessionManagement.KEY_NAME) + " Logged In", Toast.LENGTH_LONG).show();
+                if(session.getUserDetails().get(SessionManagement.KEY_NAME)!=null){
+                    Toast.makeText(getApplicationContext(), session.getUserDetails().get(SessionManagement.KEY_NAME) + " Logged In", Toast.LENGTH_LONG).show();
+                }
                 return true;
 
             case R.id.action_cart:
@@ -182,6 +173,19 @@ public class NavigationActivity extends AppCompatActivity
 
         } else if (id == R.id.mshoes) {
 
+        }
+        else if (id == R.id.order_history){
+            Intent i = new Intent(NavigationActivity.this,OrderHistoryActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        else if (id == R.id.sign_out) {
+            // Clear the session data
+            // This will clear all session data and
+            // redirect user to LoginActivity
+            session.logoutUser();
+            Toast.makeText(getApplicationContext(), "User Logged out", Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,8 +1,11 @@
 package com.example.achint.ecommerce.Model;
+import com.example.achint.ecommerce.View.LoginActivity;
 import com.google.gson.annotations.SerializedName;
 
 
 public class Users{
+    @SerializedName("id")
+	private String id;
 
 	@SerializedName("firstname")
 	private String firstname;
@@ -37,6 +40,10 @@ public class Users{
     }
 
     public Users(){}
+
+    public String getId() {
+        return id;
+    }
 
     public void setFirstname(String firstname){
 		this.firstname = firstname;
@@ -86,16 +93,16 @@ public class Users{
 		return lastname;
 	}
 
-	@Override
- 	public String toString(){
-		return 
-			"Users{" + 
-			"firstname = '" + firstname + '\'' + 
-			",password = '" + password + '\'' + 
-			",address = '" + address + '\'' + 
-			",contact = '" + contact + '\'' + 
-			",email = '" + email + '\'' + 
-			",lastname = '" + lastname + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return "Users{" +
+                "userId=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", contact='" + contact + '\'' +
+                ", email='" + email + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }

@@ -73,11 +73,12 @@
                     android:id="@+id/order_history"
                     android:icon="@drawable/ic_order_history"
                     android:title="Order History" />
+                <item
+                    android:id="@+id/sign_out"
+                    android:icon="@drawable/ic_logout"
+                    android:title="Logout" />
             </menu>
         </item>
-        <item
-            android:id="@+id/sign_out"
-            android:icon="@drawable/ic_logout"
-            android:title="Logout" />
+
     </group>
 </menu>
