@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this,"registered successfully:)",Toast.LENGTH_LONG).show();
                     alert.showAlertDialog(SignupActivity.this, "Successful SignUp, verify your email for login.", "Welcome to Easy Buy", true);
                     progressDialog.dismiss();
-                    Intent i = new Intent(SignupActivity.this,NavigationActivity.class);
+                    Intent i = new Intent(SignupActivity.this,HomeActivity.class);
                     startActivity(i);
                     finish();
 
@@ -90,36 +90,26 @@ public class SignupActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         signup = findViewById(R.id.bt_signup);
 
-
-        etEmail.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
+        etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
                 Validation.isEmailAddress(etEmail, true);
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
-        etPassword.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
+        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
                 Validation.isPassword(etPassword, true);
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
 
-        etContact.addTextChangedListener(new TextWatcher() {
+        etContact.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count){ }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void onFocusChange(View v, boolean hasFocus) {
                 Validation.isPhoneNumber(etContact, false);
             }
         });
-
 
 
         usersInterface = MainController.getInstance().getClientForLogin().create(UsersInterface.class);
