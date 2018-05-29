@@ -1,4 +1,5 @@
 package com.ecommerce.ECommerce.Model;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -6,9 +7,11 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="users")
 public class UserModel {
+
     @Id
-    @GeneratedValue
-    private long user_id;
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id;
     @NotNull
     private String firstname;
     private String lastname;
@@ -16,11 +19,14 @@ public class UserModel {
     private String contact;
     @NotNull
     private String email;
-    @Length(min = 8, message = "*Your password must have at least 8 characters")
     @NotNull
     private String password;
+    private Boolean isActive;
+    private String verificationToken;
 
-
+    public String getId() {
+        return id;
+    }
 
     public UserModel(String firstname, String lastname, String address, String contact, String email, String password) {
         this.firstname = firstname;
@@ -43,6 +49,26 @@ public class UserModel {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        this.isActive = active;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
     }
 
     public void setLastname(String lastname) {

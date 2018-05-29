@@ -20,4 +20,12 @@ public class ExceptionHandler {
     public ResponseEntity<String> passwordMismatchException(PasswordMismatchException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> userNotFoundException(UserNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotVerifiedException.class)
+    public ResponseEntity<String> userNotVerifiedException(UserNotVerifiedException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 }

@@ -3,12 +3,10 @@ import com.ecommerce.ECommerce.DTO.UserDto;
 import com.ecommerce.ECommerce.Service.UserService;
 import com.ecommerce.ECommerce.UserExceptions.PasswordMismatchException;
 import com.ecommerce.ECommerce.UserExceptions.UserExistsException;
-import org.apache.catalina.User;
+import com.ecommerce.ECommerce.UserExceptions.UserNotFoundException;
+import com.ecommerce.ECommerce.UserExceptions.UserNotVerifiedException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("easybuy")
@@ -23,8 +21,24 @@ public class UserController {
     }
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
-    public UserDto loginUser(@RequestBody UserDto userDto) throws PasswordMismatchException {
+    public UserDto loginUser(@RequestBody UserDto userDto) throws PasswordMismatchException, UserNotVerifiedException {
         return userService.validateUser(userDto.getEmail(),userDto.getPassword());
     }
+
+    @RequestMapping(value="/get-user-details", method = RequestMethod.GET)
+    public UserDto getUser(@RequestParam String email) throws UserNotFoundException {
+        return userService.getUserDetails(email);
+    }
+
+    @RequestMapping(value="/update-user-profile", method = RequestMethod.POST)
+    public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotFoundException {
+        return userService.updateUserProfile(userDto);
+    }
+
+    @RequestMapping(value="/confirm", method = RequestMethod.GET)
+    public String confirmUser(@RequestParam String token){
+        return userService.confirm(token);
+    }
+
 
 }

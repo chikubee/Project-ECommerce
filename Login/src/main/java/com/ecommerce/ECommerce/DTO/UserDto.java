@@ -3,22 +3,30 @@ package com.ecommerce.ECommerce.DTO;
 import com.ecommerce.ECommerce.UserSecurity.HashPassword;
 
 public class UserDto {
-    private long user_id;
+    private String id;
     private String firstname;
     private String lastname;
     private String address;
     private String contact;
     private String email;
     private String password;
+    private Boolean isActive;
+    private String verificationToken;
 
 
-    public UserDto(String firstname, String lastname, String address, String contact, String email, String password) {
+    public UserDto(String firstname, String lastname, String address, String contact, String email, String password, Boolean isActive, String verificationToken) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
         this.contact = contact;
         this.email = email;
-        this.password = HashPassword.MD5(password);
+        this.password = password;
+        this.isActive = isActive;
+        this.verificationToken = verificationToken;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public UserDto(String email, String password){
@@ -27,6 +35,22 @@ public class UserDto {
     }
 
     public UserDto(){}
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        this.isActive = active;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -76,12 +100,17 @@ public class UserDto {
         this.password =HashPassword.MD5(password);
     }
 
+    public String getId() {
+        return id;
+    }
+
 
     @Override
     public String toString() {
         return "UserDto{" +
-                "fname='" + firstname + '\'' +
-                ", lname='" + lastname + '\'' +
+                "id='" + id + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", address='" + address + '\'' +
                 ", contact='" + contact + '\'' +
                 ", email='" + email + '\'' +
