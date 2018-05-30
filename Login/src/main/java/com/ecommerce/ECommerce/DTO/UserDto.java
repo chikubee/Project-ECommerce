@@ -29,12 +29,13 @@ public class UserDto {
         this.id = id;
     }
 
-    public UserDto(String email, String password){
+    public UserDto(String email, String password) {
         this.email = email;
-        this.password = HashPassword.MD5(password);
+        this.password = password;
     }
 
-    public UserDto(){}
+    public UserDto() {
+    }
 
     public Boolean getActive() {
         return isActive;
@@ -97,7 +98,7 @@ public class UserDto {
     }
 
     public void setPassword(String password) {
-        this.password =HashPassword.MD5(password);
+        this.password = password;
     }
 
     public String getId() {

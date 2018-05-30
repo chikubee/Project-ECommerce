@@ -7,13 +7,13 @@ import com.ecommerce.ECommerce.UserExceptions.UserNotFoundException;
 import com.ecommerce.ECommerce.UserExceptions.UserNotVerifiedException;
 
 public interface UserService {
-    public UserDto createUser(UserDto userDto) throws UserExistsException;
+    UserDto createUser(UserDto userDto) throws UserExistsException;
 
-    public UserDto validateUser(String email, String password) throws PasswordMismatchException, UserNotVerifiedException;
+    UserDto validateUser(String email, String password) throws PasswordMismatchException, UserNotVerifiedException, UserNotFoundException;
 
-    public UserDto getUserDetails(String email) throws UserNotFoundException;
+    UserDto getUserDetails(String email) throws UserNotFoundException;
 
-    public UserDto updateUserProfile(UserDto userDto) throws UserNotFoundException;
+    UserDto updateUserProfile(UserDto userDto) throws UserNotFoundException;
 
-    public String confirm(String token);
+    String confirm(String token) throws UserNotFoundException;
 }

@@ -1,16 +1,23 @@
 package com.ecommerce.ECommerce.Model;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
+
+/**
+ * Lombok @Data and @NoArgsConstructor
+ * Lombok Builder
+ */
 public class UserModel {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     @NotNull
     private String firstname;
@@ -37,7 +44,8 @@ public class UserModel {
         this.password = password;
     }
 
-    public UserModel(){}
+    public UserModel() {
+    }
 
     public String getFirstname() {
         return firstname;
@@ -103,7 +111,8 @@ public class UserModel {
         return password;
     }
 
-    public void setPassword(String password) { this.password = password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 
